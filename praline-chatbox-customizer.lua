@@ -45,8 +45,9 @@ function script_update(settings)
         local newStyles = "\n" .. BOOKEND .. "yt-live-chat-renderer {\n" .. chatmsgbgCSS .. "}\n" .. BOOKEND
         obslua.obs_data_set_string(settings, "css", css .. newStyles)
         obslua.obs_source_update(source, settings)
-        obslua.obs_source_release(source)
+        obslua.obs_data_release(settings)
       end
+      obslua.obs_source_release(source)
     end
   end
 end
