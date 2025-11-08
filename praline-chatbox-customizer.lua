@@ -29,7 +29,7 @@ function script_update(settings)
     if color ~= 0 then -- Setting hasn't been set TODO Fix when first loading script
       local colorHex = bgrToRGBHex(colorIntToBGR(color))
 
-      local sourceName = 'Chat'
+      local sourceName = obslua.obs_data_get_string(lrj_chat_settings, "source")
       local source = obslua.obs_get_source_by_name(sourceName)
       if source ~= nil then
         local settings = obslua.obs_source_get_settings(source)
@@ -55,6 +55,24 @@ end
 function script_properties()
 
   local properties = obslua.obs_properties_create()
+
+  local p = obslua.obs_properties_add_list(properties, "source", "Browser Source", obslua.OBS_COMBO_TYPE_EDITABLE, obslua.OBS_COMBO_FORMAT_STRING)
+  local sources = obslua.obs_enum_sources()
+
+  -- As long as the sources are not empty, then
+  if sources ~= nil then
+    -- iterate over all the sources
+    for _, source in ipairs(sources) do
+      source_id = obslua.obs_source_get_id(source)
+      -- Only show browser sources
+      if source_id == "browser_source" then
+        local name = obslua.obs_source_get_name(source)
+        obslua.obs_property_list_add_string(p, name, name)
+      end
+    end
+  end
+
+  obslua.source_list_release(sources)
 
   -- Color option For Message Background
   obslua.obs_properties_add_color(properties, "chatmsgbg", "Chat Message Background")
