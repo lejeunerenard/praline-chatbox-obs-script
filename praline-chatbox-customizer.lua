@@ -1,3 +1,5 @@
+local version = '1.0.0'
+
 -- Convert int color to BGR
 function colorIntToBGR(color)
   return color - 4278190080
@@ -14,7 +16,13 @@ end
 
 -- This function is necessary to tell OBS it is a script
 function script_description()
-  return 'Customize Praline Chatbox theme chat CSS in OBS. Theme can be purchased <a href="https://ko-fi.com/s/7e30e8500e">here</a>.'
+  local description = [[
+  <p>
+    Customize Praline Chatbox theme chat CSS in OBS. Theme can be purchased <a href="https://ko-fi.com/s/7e30e8500e">here</a>.
+  </p>
+  <p>Version:  %s</p>
+  ]]
+  return string.format(description, version)
 end
 
 -- Called upon settings initialization and modification
