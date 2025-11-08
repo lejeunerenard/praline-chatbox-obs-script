@@ -4,4 +4,4 @@ An OBS script to add custom CSS to a browser source using [Praline Chatbox theme
 
 Supported customizations:
 
-- Message Background color
+- Chat Message Background color
